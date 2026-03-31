@@ -3,75 +3,86 @@ syntax = "proto3";
 package auth;
 
 service AuthService {
-    rpc Register(RegisterRequest) returns (RegisterResponse);
-    rpc Login(LoginRequest) returns (LoginResponse);
-    rpc SendOtp(SendOtpRequest) returns (SendOtpResponse);
-    rpc VerifyOtp(VerifyOtpRequest) returns (VerifyOtpResponse);
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+  rpc Login(LoginRequest) returns (LoginResponse);
+  rpc SendOtp(SendOtpRequest) returns (SendOtpResponse);
+  rpc VerifyOtp(VerifyOtpRequest) returns (VerifyOtpResponse);
+  rpc DecodeToken(DecodeTokenRequest) returns (DecodeTokenResponse);
 }
 
 enum UserRole {
-    INVESTOR = 0;
-    ADMIN = 1;
-    STARTUPPER = 2;
+  INVESTOR = 0;
+  ADMIN = 1;
+  STARTUPPER = 2;
 }
 
 message RegisterRequest {
-    string email = 1;
-    string first_name = 2;
-    string last_name = 3;
-    UserRole role = 4;
-    string password = 5;
+  string email = 1;
+  string first_name = 2;
+  string last_name = 3;
+  UserRole role = 4;
+  string password = 5;
 }
 
 message UserData {
-    string user_id = 1;
-    string first_name = 2;
-    string last_name = 3;
-    UserRole role = 4;
-    string email = 5;
+  string user_id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  UserRole role = 4;
+  string email = 5;
 }
 
 message RegisterResponse {
-    bool success = 1;
-    string message = 2;
-    UserData data = 3;
+  bool success = 1;
+  string message = 2;
+  UserData data = 3;
 }
 
 message LoginRequest {
-    string email = 1;
-    string password = 2;
+  string email = 1;
+  string password = 2;
 }
 
 message LoginData {
-    string user_id = 1;
-    string email = 2;
-    string first_name = 3;
-    string last_name = 4;
-    string access_token = 5;
-    string refresh_token = 6;
+  string user_id = 1;
+  string email = 2;
+  string first_name = 3;
+  string last_name = 4;
+  string access_token = 5;
+  string refresh_token = 6;
 }
 
 message LoginResponse {
-    bool success = 1;
-    string message = 2;
-    LoginData data = 3;
+  bool success = 1;
+  string message = 2;
+  LoginData data = 3;
 }
 
 message SendOtpRequest {
-    string email = 1;
+  string email = 1;
 }
 
 message SendOtpResponse {
-    bool success = 1;
-    string message = 2;
+  bool success = 1;
+  string message = 2;
 }
 
 message VerifyOtpRequest {
-    string email = 1;
-    string otp = 2;
+  string email = 1;
+  string otp = 2;
 }
 
 message VerifyOtpResponse {
-    bool success = 1;
-    string message = 2;
+  bool success = 1;
+  string message = 2;
+}
+
+message DecodeTokenRequest {
+  string token = 1;
+}
+
+message DecodeTokenResponse {
+  bool success = 1;
+  string message = 2;
+  map<string, string> data = 3;
 }
